@@ -3562,10 +3562,7 @@ private void loadCityCoordinates() {
 						}
 					}
 				}
-			if(GameState.resourcesToAdd.isEmpty()){
-				// All resources have been added - exit out of this event
-				GameState.currentEvent.removeLast();
-			}
+			
 			
 			// Click didn't hit any plant - show Invalid Click
 			
