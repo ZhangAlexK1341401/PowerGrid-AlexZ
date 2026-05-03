@@ -1,5 +1,7 @@
 package src;
 
+
+
 public class Edge {
     private CityNode a;
     private CityNode b;

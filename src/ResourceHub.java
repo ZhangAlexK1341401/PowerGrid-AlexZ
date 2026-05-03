@@ -1,4 +1,6 @@
 package src;
+
+
 public class ResourceHub {
     // Market spaces 1-16, tracking how many of each resource are at each price point
     public boolean[][] coalMarket = new boolean[8][3];      // Spaces 1-16

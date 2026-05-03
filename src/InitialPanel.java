@@ -70,7 +70,8 @@ private void loadCityCoordinates() {
 
 	private void selectRandomInvalidImage() {
 		if (invalidClickImages != null && invalidClickImages.length > 0) {
-			currentInvalidImage = invalidClickImages[random.nextInt(invalidClickImages.length)];
+			currentInvalidImage = invalidClickImages[invalidClickImageIndex];
+			invalidClickImageIndex = (invalidClickImageIndex + 1) % invalidClickImages.length; // Cycle through
 		} else {
 			currentInvalidImage = son;
 		}
@@ -105,9 +106,13 @@ private void loadCityCoordinates() {
 	pp19, pp20, pp21, pp22, pp23, pp24, pp25, pp26, pp27, pp28, pp29, pp30, pp31, pp32, pp33, pp34, pp35, pp36, pp37, pp38, pp39, pp40,
 	pp42, pp44, pp46, pp50, step3Card;
 	//Here are the GEEKED ass images
-	private BufferedImage son, britDog, catMeme, doesHeKnow, Dolg, folk, heyTwin, iGuessBro, lastOne, simpsons, sonSon, sonionite, tomPointing, watches, whyWouldYou, wikiHow, tookMeSoLong, bigC, blueRoblox, chromeLibro, duo, fih, fork, homieCheckup, iphone, recipe, sinPalabras, theBabwe;
+	private BufferedImage firstImage, secondImage, thirdImage, fourthImage, fifthImage,
+		sixthImage, seventhImage, eighthImage, ninthImage, tenthImage, eleventhImage, twelfthImage, thirteenthImage, fourteenthImage, fifteenthImage,
+		sixteenthImage, seventeenthImage, eighteenthImage, nineteenthImage, twentiethImage, twentyFirstImage, twentySecondImage, twentyThirdImage, twentyFourthImage, twentyFifthImage,
+		son, britDog, catMeme, doesHeKnow, Dolg, folk, heyTwin, iGuessBro, lastOne, simpsons, sonSon, sonionite, tomPointing, watches, whyWouldYou, wikiHow, tookMeSoLong, bigC, blueRoblox, chromeLibro, duo, fih, fork, homieCheckup, iphone, recipe, sinPalabras, theBabwe;
 	private BufferedImage[] invalidClickImages;
 	private BufferedImage currentInvalidImage;
+	private int invalidClickImageIndex = 0; // Track sequential image selection
 	private BufferedImage[] tooBrokeImages;
 	private BufferedImage currentTooBrokeImage;
 	private final Random random = new Random();
@@ -120,95 +125,143 @@ private void loadCityCoordinates() {
 			// Try loading from resources with null checks
 			InputStream is;
 
+			is= PowerGridFrame.class.getResourceAsStream("/resources/First Image.png");
+			if(is == null) is = new java.io.FileInputStream("/resources/First Image.png");
+			firstImage = ImageIO.read(is);
+
+			is= PowerGridFrame.class.getResourceAsStream("/resources/Second Image.png");
+			if(is == null) is = new java.io.FileInputStream("/resources/Second Image.png");
+			secondImage = ImageIO.read(is);
+
+			is= PowerGridFrame.class.getResourceAsStream("/resources/Third Image.png");
+			if(is == null) is = new java.io.FileInputStream("/resources/Third Image.png");
+			thirdImage = ImageIO.read(is);
+
+			is= PowerGridFrame.class.getResourceAsStream("/resources/Fourth Image.png");
+			if(is == null) is = new java.io.FileInputStream("/resources/Fourth Image.png");
+			fourthImage = ImageIO.read(is);
+
+			is= PowerGridFrame.class.getResourceAsStream("/resources/Fifth Image.png");
+			if(is == null) is = new java.io.FileInputStream("/resources/Fifth Image.png");
+			fifthImage = ImageIO.read(is);
+
 			is= PowerGridFrame.class.getResourceAsStream("/resources/British dog.jpeg");
 			if(is == null) is = new java.io.FileInputStream("/resources/British dog.jpeg");
 			britDog = ImageIO.read(is);
-
-			is= PowerGridFrame.class.getResourceAsStream("/resources/cat meme.jpeg");
-			if(is == null) is = new java.io.FileInputStream("/resources/cat meme.jpeg");
-			catMeme = ImageIO.read(is);
-
-		is= PowerGridFrame.class.getResourceAsStream("/resources/Does he know.jpeg");
-		if(is == null) is = new java.io.FileInputStream("/resources/Does he know.jpeg");
-		doesHeKnow = ImageIO.read(is);			is= PowerGridFrame.class.getResourceAsStream("/resources/Dolg.jpeg");
-			if(is == null) is = new java.io.FileInputStream("/resources/Dolg.jpeg");
-			Dolg = ImageIO.read(is);
-
-			is= PowerGridFrame.class.getResourceAsStream("/resources/folk-meme.png");
-			if(is == null) is = new java.io.FileInputStream("/resources/folk-meme.png");
-			folk = ImageIO.read(is);
-
-			is= PowerGridFrame.class.getResourceAsStream("/resources/hey twin.jpeg");
-			if(is == null) is = new java.io.FileInputStream("/resources/hey twin.jpeg");
-			heyTwin = ImageIO.read(is);
-
-			is= PowerGridFrame.class.getResourceAsStream("/resources/I guess bro.jpeg");
-			if(is == null) is = new java.io.FileInputStream("/resources/I guess bro.jpeg");
-			iGuessBro = ImageIO.read(is);
-			
-
-		is= PowerGridFrame.class.getResourceAsStream("/resources/Last one.png");
-		if(is == null) is = new java.io.FileInputStream("/resources/Last one.png");
-		lastOne = ImageIO.read(is);			is= PowerGridFrame.class.getResourceAsStream("/resources/Simpsons laughing.png");
-			if(is == null) is = new java.io.FileInputStream("/resources/Simpsons laughing.png");
-			simpsons = ImageIO.read(is);
-
-			is= PowerGridFrame.class.getResourceAsStream("/resources/son-son-meme.png");
-			if(is == null) is = new java.io.FileInputStream("/resources/son-son-meme.png");
-			sonSon = ImageIO.read(is);
-
-		is= PowerGridFrame.class.getResourceAsStream("/resources/Sonionite (4).jpg");
-		if(is == null) is = new java.io.FileInputStream("/resources/Sonionite (4).jpg");
-		sonionite = ImageIO.read(is);			is= PowerGridFrame.class.getResourceAsStream("/resources/Tom pointing.jpeg");
-			if(is == null) is = new java.io.FileInputStream("/resources/Tom pointing.jpeg");
-			tomPointing = ImageIO.read(is);
-
-			is= PowerGridFrame.class.getResourceAsStream("/resources/watches.png");
-			if(is == null) is = new java.io.FileInputStream("/resources/watches.png");
-			watches = ImageIO.read(is);
-
-			is= PowerGridFrame.class.getResourceAsStream("/resources/Why would you do that.png");
-			if(is == null) is = new java.io.FileInputStream("/resources/Why would you do that.png");
-			whyWouldYou = ImageIO.read(is);
-
-		is= PowerGridFrame.class.getResourceAsStream("/resources/Wiki how.jpg");
-		if(is == null) is = new java.io.FileInputStream("/resources/Wiki how.jpg");
-		wikiHow = ImageIO.read(is);
+			is= PowerGridFrame.class.getResourceAsStream("/resources/Sixth Image.png");
+			if(is == null) is = new java.io.FileInputStream("/resources/Sixth Image.png");
+			sixthImage = ImageIO.read(is);
+			is= PowerGridFrame.class.getResourceAsStream("/resources/Seventh Image.png");
+			if(is == null) is = new java.io.FileInputStream("/resources/Seventh Image.png");
+			seventhImage = ImageIO.read(is);
+			is= PowerGridFrame.class.getResourceAsStream("/resources/Eighth Image.png");
+			if(is == null) is = new java.io.FileInputStream("/resources/Eighth Image.png");
+			eighthImage = ImageIO.read(is);
+			is= PowerGridFrame.class.getResourceAsStream("/resources/Ninth Image.png");
+			if(is == null) is = new java.io.FileInputStream("/resources/Ninth Image.png");
+			ninthImage = ImageIO.read(is);
+			is= PowerGridFrame.class.getResourceAsStream("/resources/Tenth Image.png");
+			if(is == null) is = new java.io.FileInputStream("/resources/Tenth Image.png");
+			tenthImage = ImageIO.read(is);
+			is= PowerGridFrame.class.getResourceAsStream("/resources/Eleventh Image.png");
+			if(is == null) is = new java.io.FileInputStream("/resources/Eleventh Image.png");
+			eleventhImage = ImageIO.read(is);
+			is= PowerGridFrame.class.getResourceAsStream("/resources/Twelth Image.png");
+			if(is == null) is = new java.io.FileInputStream("/resources/Twelth Image.png");
+			twelfthImage = ImageIO.read(is);
+			is= PowerGridFrame.class.getResourceAsStream("/resources/Thirteenth Image.png");
+			if(is == null) is = new java.io.FileInputStream("/resources/Thirteenth Image.png");
+			thirteenthImage = ImageIO.read(is);
+			is= PowerGridFrame.class.getResourceAsStream("/resources/Fourteenth Image.png");
+			if(is == null) is = new java.io.FileInputStream("/resources/Fourteenth Image.png");
+			fourteenthImage = ImageIO.read(is);
+			is= PowerGridFrame.class.getResourceAsStream("/resources/Fifteenth Image.png");
+			if(is == null) is = new java.io.FileInputStream("/resources/Fifteenth Image.png");
+			fifteenthImage = ImageIO.read(is);
+			is= PowerGridFrame.class.getResourceAsStream("/resources/Sixteenth Image.png");
+			if(is == null) is = new java.io.FileInputStream("/resources/Sixteenth Image.png");
+			sixteenthImage = ImageIO.read(is);
+			is= PowerGridFrame.class.getResourceAsStream("/resources/Seventeenth Image.png");
+			if(is == null) is = new java.io.FileInputStream("/resources/Seventeenth Image.png");
+			seventeenthImage = ImageIO.read(is);
+			is= PowerGridFrame.class.getResourceAsStream("/resources/Eighteenth Image.png");
+			if(is == null) is = new java.io.FileInputStream("/resources/Eighteenth Image.png");
+			eighteenthImage = ImageIO.read(is);
+			is= PowerGridFrame.class.getResourceAsStream("/resources/Nineteenth Image.png");
+			if(is == null) is = new java.io.FileInputStream("/resources/Nineteenth Image.png");
+			nineteenthImage = ImageIO.read(is);
+			is= PowerGridFrame.class.getResourceAsStream("/resources/Twentieth Image.png");
+			if(is == null) is = new java.io.FileInputStream("/resources/Twentieth Image.png");
+			twentiethImage = ImageIO.read(is);
+			is= PowerGridFrame.class.getResourceAsStream("/resources/Twenty First Image.jpg");
+			if(is == null) is = new java.io.FileInputStream("/resources/Twenty First Image.jpg");
+			twentyFirstImage = ImageIO.read(is);
+			is= PowerGridFrame.class.getResourceAsStream("/resources/Twenty Second Image.jpg");
+			if(is == null) is = new java.io.FileInputStream("/resources/Twenty Second Image.jpg");
+			twentySecondImage = ImageIO.read(is);
+			is= PowerGridFrame.class.getResourceAsStream("/resources/Twenty Third Image.jpg");
+			if(is == null) is = new java.io.FileInputStream("/resources/Twenty Third Image.jpg");
+			twentyThirdImage = ImageIO.read(is);
+			is= PowerGridFrame.class.getResourceAsStream("/resources/Twenty Fourth Image.jpg");
+			if(is == null) is = new java.io.FileInputStream("/resources/Twenty Fourth Image.jpg");
+			twentyFourthImage = ImageIO.read(is);
+			is= PowerGridFrame.class.getResourceAsStream("/resources/Twenty Fifth Image.png");
+			if(is == null) is = new java.io.FileInputStream("/resources/Twenty Fifth Image.png");
+			twentyFifthImage = ImageIO.read(is);
+			java.util.List<BufferedImage> numberedInvalidImages = new ArrayList<>(Arrays.asList(
+				firstImage, secondImage, thirdImage, fourthImage, fifthImage,
+				sixthImage, seventhImage, eighthImage, ninthImage, tenthImage, eleventhImage, twelfthImage, thirteenthImage, fourteenthImage, fifteenthImage,
+				sixteenthImage, seventeenthImage, eighteenthImage, nineteenthImage, twentiethImage, twentyFirstImage, twentySecondImage, twentyThirdImage, twentyFourthImage, twentyFifthImage
+			));
+			String[] additionalNumberedNames = {
+				"Twenty Sixth Image.png", "Twenty Seventh Image.png", "Twenty Eight Image.png", "Twenty Ninth Image.png",
+				"Thirtieth Image.png", "Thirty First Image.png", "Thirty Second Image.png", "Thirty Third Image.png", "Thirty Fourth Image.png", "Thirty Fifth Image.png",
+				"Thirty Sixth Image.png", "Thirty Seventh Image.png", "Thirty Eighth Image.png", "Thirty Ninth Image.png", "Fortieth Image.png",
+				"Forty First Image.png", "Forty Second Image.png", "Forty Third Image.png", "Forty Fourth Image.png", "Forty Fifth Image.png",
+				"Forty Sixth Image.png", "Forty Seventh Image.png", "Forty Eighth Image.png", "Forty Ninth Image.png", "Fiftieth Image.png",
+				"Fifty First Image.png", "Fifty Second Image.png", "Fifty Third Image.png", "Fifty Fourth Image.png", "Fifty Fifth Image.png",
+				"Fifty Sixth Image.png", "Fifty Seventh Image.png", "Fifty Eighth Image.png", "Fifty Ninth Image.png", "Sixtieth Image.png",
+				"Sixty First Image.png", "Sixty Second Image.png", "Sixty Third Image.png", "Sixty Fourth Image.png", "Sixty Seventh Image.png",
+				"Sixty Eighth Image.png", "Sixty Ninth Image.png", "Seventieth Image.png", "Seventy First Image.png", "Seventy Second Image.png",
+				"Seventy Third Image.png", "Seventy Fourth Image.png", "Seventy Fifth Image.png", "Seventy Sixth Image.png", "Seventy Seventh Image.png",
+				"Seventy Eighth Image.png", "Seventy Ninth Image.png", "Eightieth Image.png", "Eighty First Image.png", "Eighty Second Image.png",
+				"Eighty Third Image.jpg", "Eighty Fourth Image.jpg", "Eighty Fifth Image.jpg", "Eighty Sixth Image.jpg", "Eighty Seventh Image.jpg",
+				"Eighty Eight Image.jpg", "Eighty Ninth Image.jpg", "Ninetieth Image.jpg", "Ninety First Image.jpg", "Ninety Second Image.png"
+			};
+			for (String imageName : additionalNumberedNames) {
+				is = PowerGridFrame.class.getResourceAsStream("/resources/" + imageName);
+				if (is == null) is = new java.io.FileInputStream("/resources/" + imageName);
+				numberedInvalidImages.add(ImageIO.read(is));
+			}
+			invalidClickImages = numberedInvalidImages.toArray(new BufferedImage[0]);
+			is= PowerGridFrame.class.getResourceAsStream("/resources/big c (1).png");
+			if(is == null) is = new java.io.FileInputStream("/resources/big c (1).png");
+			bigC = ImageIO.read(is);
 		
-		is= PowerGridFrame.class.getResourceAsStream("/resources/Took me so long to find this.jpeg");
-		if(is == null) is = new java.io.FileInputStream("/resources/Took me so long to find this.jpeg");
-		tookMeSoLong = ImageIO.read(is);
-		
-		is= PowerGridFrame.class.getResourceAsStream("/resources/big c.png");
-		if(is == null) is = new java.io.FileInputStream("/resources/big c.png");
-		bigC = ImageIO.read(is);
-		
-		is= PowerGridFrame.class.getResourceAsStream("/resources/blue roblox.png");
-		if(is == null) is = new java.io.FileInputStream("/resources/blue roblox.png");
+		is= PowerGridFrame.class.getResourceAsStream("/resources/blue roblox (1).png");
+		if(is == null) is = new java.io.FileInputStream("/resources/blue roblox (1).png");
 		blueRoblox = ImageIO.read(is);
 		
-		is= PowerGridFrame.class.getResourceAsStream("/resources/chrome libro.png");
-		if(is == null) is = new java.io.FileInputStream("/resources/chrome libro.png");
-		chromeLibro = ImageIO.read(is);
+		
 		
 		is= PowerGridFrame.class.getResourceAsStream("/resources/duo.jpg");
 		if(is == null) is = new java.io.FileInputStream("/resources/duo.jpg");
 		duo = ImageIO.read(is);
 		
-		is= PowerGridFrame.class.getResourceAsStream("/resources/fih.png");
-		if(is == null) is = new java.io.FileInputStream("/resources/fih.png");
+		is= PowerGridFrame.class.getResourceAsStream("/resources/fih (1).png");
+		if(is == null) is = new java.io.FileInputStream("/resources/fih (1).png");
 		fih = ImageIO.read(is);
 		
-		is= PowerGridFrame.class.getResourceAsStream("/resources/fork.png");
-		if(is == null) is = new java.io.FileInputStream("/resources/fork.png");
+		is= PowerGridFrame.class.getResourceAsStream("/resources/fork (1).png");
+		if(is == null) is = new java.io.FileInputStream("/resources/fork (1).png");
 		fork = ImageIO.read(is);
 		
-		is= PowerGridFrame.class.getResourceAsStream("/resources/homie checkup.png");
-		if(is == null) is = new java.io.FileInputStream("/resources/homie checkup.png");
+		is= PowerGridFrame.class.getResourceAsStream("/resources/homie checkup (1).png");
+		if(is == null) is = new java.io.FileInputStream("/resources/homie checkup (1).png");
 		homieCheckup = ImageIO.read(is);
 		
-		is= PowerGridFrame.class.getResourceAsStream("/resources/iphone.png");
-		if(is == null) is = new java.io.FileInputStream("/resources/iphone.png");
+		is= PowerGridFrame.class.getResourceAsStream("/resources/iphone (1).png");
+		if(is == null) is = new java.io.FileInputStream("/resources/iphone (1).png");
 		iphone = ImageIO.read(is);
 		
 		is= PowerGridFrame.class.getResourceAsStream("/resources/recipe.jpeg");
@@ -219,14 +272,12 @@ private void loadCityCoordinates() {
 		if(is == null) is = new java.io.FileInputStream("/resources/sin palabras.jpg");
 		sinPalabras = ImageIO.read(is);
 		
-		is= PowerGridFrame.class.getResourceAsStream("/resources/the babwe.png");
-		if(is == null) is = new java.io.FileInputStream("/resources/the babwe.png");
+		is= PowerGridFrame.class.getResourceAsStream("/resources/the babwe (1).png");
+		if(is == null) is = new java.io.FileInputStream("/resources/the babwe (1).png");
 		theBabwe = ImageIO.read(is);
 		
-		invalidClickImages = new BufferedImage[] { britDog, catMeme, doesHeKnow, Dolg, folk, heyTwin, iGuessBro, lastOne, simpsons, sonSon, sonionite, tomPointing, watches, whyWouldYou, wikiHow, tookMeSoLong, bigC, blueRoblox, chromeLibro, duo, fih, fork, homieCheckup, iphone, recipe, sinPalabras, theBabwe };
-		
-		tooBrokeImages = new BufferedImage[] { britDog, catMeme, doesHeKnow, Dolg, folk, heyTwin, iGuessBro, lastOne, simpsons, sonSon, sonionite, tomPointing, watches, whyWouldYou, wikiHow, tookMeSoLong, bigC, blueRoblox, chromeLibro, duo, fih, fork, homieCheckup, iphone, recipe, sinPalabras, theBabwe };
-		currentTooBrokeImage = tooBrokeImages[random.nextInt(tooBrokeImages.length)];
+		tooBrokeImages = invalidClickImages;
+		selectRandomTooBrokeImage();
 
 			is = PowerGridFrame.class.getResourceAsStream("/resources/Too Broke.png");
 			if(is == null) is = new java.io.FileInputStream("resources/Too Broke.png");
@@ -1346,7 +1397,7 @@ private void loadCityCoordinates() {
 			// Draw title and helper text consistently below the image
 			g.setColor(Color.WHITE);
 			g.setFont(Main.customFont.deriveFont(Font.BOLD, 34f));
-			String title = "You are barred from clicking there.";
+			String title = "";
 			FontMetrics titleFm = g.getFontMetrics();
 			int titleW = titleFm.stringWidth(title);
 			int titleY = imgY + dstSize + 24;
@@ -1432,6 +1483,57 @@ private void loadCityCoordinates() {
 						g.setColor(Color.BLACK);
 						bureauG2d.drawOval(x - circleSize/2, y - circleSize/2, circleSize, circleSize);
 					
+				
+				break;
+				
+			case "End Game":
+				g.drawImage(gameBackground, 0, 0, 2048, 1152, this);
+				drawMenu(g);
+				
+				g.setFont(Main.customFont.deriveFont(Font.BOLD, 50f));
+				g.setColor(Color.BLACK);
+				g.drawString("GAME OVER", 100, 100);
+				
+				// Calculate cities powered for each player
+				int[] citiesPowered = new int[4];
+				int maxCitiesPowered = 0;
+				int winnerIndex = -1;
+				
+				for(int i = 0; i < 4; i++) {
+					citiesPowered[i] = GameState.calculatePlayerCitiesPowered(GameState.players[i]);
+					if(citiesPowered[i] > maxCitiesPowered) {
+						maxCitiesPowered = citiesPowered[i];
+						winnerIndex = i;
+					}
+				}
+				
+				// Display results
+				g.setFont(Main.customFont.deriveFont(Font.BOLD, 35f));
+				int resultY = 200;
+				
+				for(int i = 0; i < 4; i++) {
+					String resultText = "Player " + (i+1) + " (" + GameState.players[i].getColor() + "): " + 
+										citiesPowered[i] + " cities powered (out of " + GameState.players[i].getCities().size() + ")";
+					
+					if(i == winnerIndex) {
+						g.setColor(Color.GREEN);
+						resultText = "★ " + resultText + " ★ WINNER!";
+					} else {
+						g.setColor(Color.BLACK);
+					}
+					
+					g.drawString(resultText, 150, resultY);
+					resultY += 60;
+				}
+				
+				// Click to exit button
+				g.setColor(Color.WHITE);
+				g.fillRect(getWidth()/2 - (getWidth()/10), (int)(getHeight() * 0.85), getWidth()/5, (int)(getHeight() * 0.08));
+				g.setColor(Color.BLACK);
+				Graphics2D endGameG2 = (Graphics2D)(g);
+				endGameG2.setStroke(new BasicStroke(5));
+				endGameG2.drawRect(getWidth()/2 - (getWidth()/10), (int)(getHeight() * 0.85), getWidth()/5, (int)(getHeight() * 0.08));
+				centerString(g, "Exit", getWidth()/2 - (getWidth()/10), (int)(getHeight() * 0.85), getWidth()/5, (int)(getHeight() * 0.08));
 				
 				break;
 			case "Activate Powerplants":
@@ -2412,6 +2514,11 @@ private void loadCityCoordinates() {
 					GameState.currentEvent.add("Instructions");
 					repaint();
 				}
+				// Invalid click if clicking outside buttons
+				else {
+					triggerInvalidClickEvent();
+					repaint();
+				}
 				break;
 			
 			case "Instructions":
@@ -2451,30 +2558,40 @@ private void loadCityCoordinates() {
 				break;
 
 			case "Color Selection":
+				boolean colorChosen = false;
 				if (x >= 574 && x <= 724 && y >= 501 && y <= 651 && !GameState.isColorSelected[0]) {
 					GameState.isColorSelected[0] = true;
 					GameState.players[GameState.playerOrder[GameState.currentPlayerIndex] - 1].setColor("Red");
 					GameState.currentPlayerIndex++;
+					colorChosen = true;
 				} else if (x>=724 && x <= 874 && y >= 501 && y <= 651 && !GameState.isColorSelected[1]) {
 					GameState.isColorSelected[1] = true;
 					GameState.players[GameState.playerOrder[GameState.currentPlayerIndex] - 1].setColor("Yellow");
 					GameState.currentPlayerIndex++;
+					colorChosen = true;
 				} else if (x >= 874 && x <= 1024 && y >= 501 && y <= 651 && !GameState.isColorSelected[2]) {
 					GameState.isColorSelected[2] = true;
 					GameState.players[GameState.playerOrder[GameState.currentPlayerIndex] - 1].setColor("Green");
 					GameState.currentPlayerIndex++;
+					colorChosen = true;
 				} else if (x >= 1024 && x <= 1174 && y >= 501 && y <= 651 && !GameState.isColorSelected[3]) {
 					GameState.isColorSelected[3] = true;
 					GameState.players[GameState.playerOrder[GameState.currentPlayerIndex] - 1].setColor("Blue");
 					GameState.currentPlayerIndex++;
+					colorChosen = true;
 				} else if (x >= 1174 && x <= 1324 && y >= 501 && y <= 651 && !GameState.isColorSelected[4]) {
 					GameState.isColorSelected[4] = true;
 					GameState.players[GameState.playerOrder[GameState.currentPlayerIndex] - 1].setColor("Purple");
 					GameState.currentPlayerIndex++;
+					colorChosen = true;
 				} else if (x >= 1324 && x <= 1474 && y >= 501 && y <= 651 && !GameState.isColorSelected[5]) {
 					GameState.isColorSelected[5] = true;
 					GameState.players[GameState.playerOrder[GameState.currentPlayerIndex] - 1].setColor("White");
 					GameState.currentPlayerIndex++;
+					colorChosen = true;
+				}
+				if (!colorChosen) {
+					triggerInvalidClickEvent();
 				}
 				
 				if(GameState.currentPlayerIndex == 4) {
@@ -2568,6 +2685,10 @@ private void loadCityCoordinates() {
 				} else if (x >= 1700 && x <= 1820 && y >= 10 && y <= 120) {
 					GameState.currentEvent.add("Menu");
 				}
+				// Invalid click if clicking outside zone squares
+				else {
+					triggerInvalidClickEvent();
+				}
 				
 				if(GameState.currentPlayerIndex == 4) {
 					x=0;
@@ -2580,6 +2701,12 @@ private void loadCityCoordinates() {
 		repaint();
 		break;
 				case "Pick Powerplant":
+					// Check for invalid click at the beginning
+					if (x < 0 || y < 0) {
+						triggerInvalidClickEvent();
+						repaint();
+						return;
+					}
 					// code for picking power plant
 					/*	
 					First powerplant is at 175 150. 150x150. each has 50 pixels between them.
@@ -2596,9 +2723,7 @@ private void loadCityCoordinates() {
 					
 					
 					*/
-				if (y >= 150 && y <= 300) {
-
-				if (x >= 175 && x <= 325) {
+					if (y >= 150 && y <= 300) {				if (x >= 175 && x <= 325) {
 				if(GameState.powerPlantsInMarket.get(0).getPrice() == 51) { // Step 3 card cannot be purchased
 					triggerInvalidClickEvent();
 					repaint();
@@ -2620,6 +2745,8 @@ private void loadCityCoordinates() {
 				GameState.currentEvent.removeLast();
 				
 				GameState.continueAuction();
+					repaint();
+					return;
 
 			} else if (x >= 375 && x <= 525) {
 				if(GameState.powerPlantsInMarket.get(1).getPrice() == 51) { // Step 3 card cannot be purchased
@@ -2642,6 +2769,8 @@ private void loadCityCoordinates() {
 				GameState.currentEvent.removeLast();
 				
 				GameState.continueAuction();
+					repaint();
+					return;
 			
 			} else if (x >= 575 && x <= 725) {
 				if(GameState.powerPlantsInMarket.get(2).getPrice() == 51) { // Step 3 card cannot be purchased
@@ -2664,6 +2793,8 @@ private void loadCityCoordinates() {
 				GameState.currentEvent.removeLast();
 				
 				GameState.continueAuction();
+					repaint();
+					return;
 
 			} else if (x >= 775 && x <= 925) {
 				if(GameState.powerPlantsInMarket.get(3).getPrice() == 51) { // Step 3 card cannot be purchased
@@ -2686,6 +2817,8 @@ private void loadCityCoordinates() {
 				GameState.currentEvent.removeLast();
 				
 				GameState.continueAuction();
+					repaint();
+					return;
 			}
 		}
 		// Step 3 - Allow purchasing from indices 4 and 5 during Step 3
@@ -2694,6 +2827,7 @@ private void loadCityCoordinates() {
 				// First Step 3 card (index 4)
 				if(GameState.players[GameState.playerOrderInAuction.get(0)].getElektro()<GameState.powerPlantsInMarket.get(4).getPrice()-1) {
 					GameState.currentEvent.add("Too Broke");
+					selectRandomTooBrokeImage();
 					repaint();
 					return;
 				}
@@ -2706,6 +2840,8 @@ private void loadCityCoordinates() {
 				GameState.currentEvent.removeLast();
 				
 				GameState.continueAuction();
+					repaint();
+					return;
 
 			} else if (x >= 375 && x <= 525) {
 				// Second Step 3 card (index 5)
@@ -2724,9 +2860,12 @@ private void loadCityCoordinates() {
 				GameState.currentEvent.removeLast();
 				
 				GameState.continueAuction();
+					repaint();
+					return;
 			}
 		}
-		else if (x >= getWidth() - 200 && x <= getWidth() - 50 && y >= getHeight() - 110 && y <= getHeight() - 50){
+		
+		if (x >= getWidth() - 200 && x <= getWidth() - 50 && y >= getHeight() - 110 && y <= getHeight() - 50){
 			x=0;y=0;
 			GameState.players[GameState.playerOrderInAuction.get(0)].setInAuction(false);
 			GameState.numPlayerSkipped++;
@@ -2742,6 +2881,10 @@ private void loadCityCoordinates() {
 				GameState.playerOrderInAuction.remove(0);
 			}
 
+		}
+		else {
+			// Click didn't hit any button - show Invalid Click
+			triggerInvalidClickEvent();
 		}
 					repaint();
 					break;
@@ -2834,6 +2977,7 @@ private void loadCityCoordinates() {
 					GameState.currentPlayerIndex = 0;
 					GameState.currentStep = 3;
 				}
+				return;
 
 				} else if (x >= 575 && x <= 725) {
 					if(GameState.powerPlantsInMarket.get(2).getPrice() == 51) {
@@ -2910,17 +3054,18 @@ private void loadCityCoordinates() {
                     }
                     GameState.powerPlantsInMarket.remove(i);
                     GameState.powerPlantsInMarket.add(GameState.powerPlantDeck.remove(GameState.powerPlantDeck.size()-1));
+			GameState.currentEvent.removeLast();
+			GameState.reversePlayerOrder();
+			GameState.currentEvent.add("Buy Resources");
+			if(GameState.powerPlantsInMarket.getLast().getPrice() == 51) {
 				GameState.currentEvent.removeLast();
-				GameState.reversePlayerOrder();
-				GameState.currentEvent.add("Buy Resources");
-				if(GameState.powerPlantsInMarket.getLast().getPrice() == 51) {
-					GameState.currentEvent.removeLast();
-					GameState.currentEvent.add("Step 3");
-					GameState.currentPlayerIndex = 0;
-					GameState.currentStep = 3;
-				}
-				}
-			
+				GameState.currentEvent.add("Step 3");
+				GameState.currentPlayerIndex = 0;
+				GameState.currentStep = 3;
+			}
+			return;
+			}
+		
 				
 		}else if (x >= getWidth() - 200 && x <= getWidth() - 50 && y >= getHeight() - 110 && y <= getHeight() - 50&&!GameState.firstRoundOfAuction){
 			GameState.numPlayerSkipped++;
@@ -2971,18 +3116,17 @@ private void loadCityCoordinates() {
 						i++;
 					}
 
-					GameState.powerPlantsInMarket.remove(i);
-					GameState.powerPlantsInMarket.add(GameState.powerPlantDeck.remove(GameState.powerPlantDeck.size() - 1));
+				GameState.powerPlantsInMarket.remove(i);
+				GameState.powerPlantsInMarket.add(GameState.powerPlantDeck.remove(GameState.powerPlantDeck.size() - 1));
 
-					GameState.currentEvent.removeLast();
-					GameState.reversePlayerOrder();
-					GameState.currentEvent.add("Buy Resources");
-				}
+				GameState.currentEvent.removeLast();
+				GameState.reversePlayerOrder();
+				GameState.currentEvent.add("Buy Resources");
+				return;
+			}
 
-				// Second Step-3 card (index 5 in the market)
-				else if (x >= 375 && x <= 525 && y >= 350 && y <= 500) {
-
-					GameState.auctionedPowerPlant = GameState.powerPlantsInMarket.get(5);
+			// Second Step-3 card (index 5 in the market)
+			else if (x >= 375 && x <= 525 && y >= 350 && y <= 500) {					GameState.auctionedPowerPlant = GameState.powerPlantsInMarket.get(5);
 					GameState.minBid = GameState.auctionedPowerPlant.getPrice() - 1;
 
 					GameState.players[GameState.playerOrderInAuction.get(0)].setBid(0);
@@ -3151,9 +3295,7 @@ private void loadCityCoordinates() {
 								GameState.selectedResourceForAddition = GameState.resourcesToAdd.removeFirst();
 							}
 							// Keep "Discard Powerplant" in queue so cleanup code can detect discardFlow
-							GameState.currentEvent.add("Select Resource");
-							repaint();
-							return;
+							
 						}
 						
 						// Remove this power plant from market and add a new one
@@ -3200,7 +3342,7 @@ private void loadCityCoordinates() {
 							GameState.auctionPlayerIndex = 0;
 							GameState.minBid = GameState.auctionedPowerPlant.getPrice() - 1;
 							// Don't add event here - let continueAuction() handle it
-							GameState.continueAuction();
+							GameState.currentEvent.add("Pick Powerplant");
 						}
 						
 						repaint();
@@ -3228,14 +3370,14 @@ private void loadCityCoordinates() {
 
 							GameState.currentPlayerIndex++;
 
-							if (GameState.currentPlayerIndex == 4) {
-								GameState.currentPlayerIndex = 0;
-								GameState.currentEvent.removeLast();
-								GameState.currentEvent.add("Buy Cities");
-							}
-						}
-
-						// Current player
+					if (GameState.currentPlayerIndex == 4) {
+						GameState.currentPlayerIndex = 0;
+						GameState.currentEvent.removeLast();
+						GameState.currentEvent.add("Buy Cities");
+					}
+					repaint();
+					return;
+				}						// Current player
 						Player buyPlayer = GameState.players[
 							GameState.playerOrder[GameState.currentPlayerIndex] - 1
 						];
@@ -3285,13 +3427,14 @@ private void loadCityCoordinates() {
 								}
 							}
 
-							resourceYPosClick += 60;
-						}
+						resourceYPosClick += 60;
+					}
 
-						repaint();
-						break;
-
-			case "Select Resource":
+					// Click didn't hit any resource button or Done button - show Invalid Click
+					triggerInvalidClickEvent();
+					repaint();
+					break;			
+					case "Select Resource":
 				// Menu button
 				if (x >= 1700 && x <= 1820 && y >= 10 && y <= 120) {
 					GameState.currentEvent.add("Menu");
@@ -3359,6 +3502,7 @@ private void loadCityCoordinates() {
 				}
 				ArrayList<PowerPlant> selectPlayerPowerPlants = selectPlayer.getPowerPlants();
 				int numPlantsToShow = Math.min(3, selectPlayerPowerPlants.size());
+				boolean actionHandled = false;
 				
 				if(numPlantsToShow > 0) {
 					// Calculate spacing for 3 plants (matching paint method)
@@ -3418,15 +3562,15 @@ private void loadCityCoordinates() {
 						}
 					}
 				}
-				if(GameState.resourcesToAdd.isEmpty()){
-					// All resources have been added - exit out of this event
-					GameState.currentEvent.removeLast();
-				}
+			if(GameState.resourcesToAdd.isEmpty()){
+				// All resources have been added - exit out of this event
+				GameState.currentEvent.removeLast();
+			}
 			
-				repaint();
-				break;
-
-			case "Buy Cities":
+			// Click didn't hit any plant - show Invalid Click
+			
+			repaint();
+			break;			case "Buy Cities":
 				if (x >= 1700 && x <= 1820 && y >= 10 && y <= 120) {
 						
 						GameState.currentEvent.add("Menu");
@@ -3449,17 +3593,22 @@ private void loadCityCoordinates() {
 						}
 						GameState.currentEvent.add("Activate Powerplants");
 					}
+					repaint();
+					return;
 				} else {
 					// Reset previously selected city
 					GameState.cityNameForPurchase = null;
+					boolean cityClicked = false;
+					boolean cityActionTaken = false;
 					
 					// Use the scaled coordinates from cityCoords (populated during paint)
-					int clickRadius = 30;
+					int clickRadius = 40;
 					for (Map.Entry<String, Point> entry : cityCoords.entrySet()) {
 						String cityName = entry.getKey();
 						Point p = entry.getValue();
 						double dist = Math.sqrt(Math.pow(x - p.x, 2) + Math.pow(y - p.y, 2));
 						if (dist <= clickRadius) {
+							cityClicked = true;
 							if (GameState.graphOfCity.contains(cityName)) {
 								GameState.cityNameForPurchase = cityName;
 								System.out.println("Clicked city: " + cityName);
@@ -3516,17 +3665,22 @@ private void loadCityCoordinates() {
 							}
 								if(GameState.players[GameState.playerOrder[GameState.currentPlayerIndex]-1].getElektro()>=GameState.setPriceForCity) {
 									GameState.currentEvent.add("Confirm City Purchase");
+									cityActionTaken = true;
 								} else {
 									// Player doesn't have enough elektro - show Too Broke screen
 									GameState.currentEvent.add("Too Broke");
 									selectRandomTooBrokeImage();
+									cityActionTaken = true;
 								}
 						}
 					}
+				if (!cityClicked || (GameState.cityNameForPurchase != null && !cityActionTaken)) {
+					triggerInvalidClickEvent();
 				}
-				repaint();
-				break;
-				case "Confirm City Purchase":
+					repaint();
+					return;
+				}
+			case "Confirm City Purchase":
 					// Yes button clicked
 					 if (x >= 1700 && x <= 1820 && y >= 10 && y <= 120) {
 						
@@ -3576,6 +3730,23 @@ private void loadCityCoordinates() {
 			repaint();
 			return; // Prevent any other event handlers from executing
 
+		case "End Game":
+			// Menu button
+			if (x >= 1700 && x <= 1820 && y >= 10 && y <= 120) {
+				GameState.currentEvent.add("Menu");
+				repaint();
+				return;
+			}
+			// Exit button clicked - end the game
+			if(x >= getWidth()/2 - (getWidth()/10) && x <= getWidth()/2 - (getWidth()/10) + getWidth()/5 
+			   && y >= (int)(getHeight() * 0.85) && y <= (int)(getHeight() * 0.85) + (int)(getHeight() * 0.08)) {
+				// Game has ended - you could add logic here to return to main menu or restart
+				System.out.println("Game ended!");
+				repaint();
+				return;
+			}
+			break;
+
 		case "Bureaucracy":
 				 // Only check menu button if coordinates are reasonable
 				 if (x >= getWidth() - 120 && x <= getWidth() && y >= 10 && y <= 120) {
@@ -3624,9 +3795,18 @@ private void loadCityCoordinates() {
 						if(GameState.currentPlayerIndex == 4) {
 							GameState.currentPlayerIndex = 0;
 							GameState.currentEvent.removeLast();
-							GameState.runBureaucracy();
-							GameState.currentEvent.add("Bureaucracy");
+							
+							// Check if anyone has 17+ powerplants - if so, trigger endgame
+							if(GameState.shouldTriggerEndgame()) {
+								GameState.currentEvent.add("End Game");
+							} else {
+								// Otherwise continue to Bureaucracy
+								GameState.runBureaucracy();
+								GameState.currentEvent.add("Bureaucracy");
+							}
 						}
+						repaint();
+						return;
 					} else {
 						// Check if a powerplant was clicked
 						Player clickedPPPlayer = GameState.players[GameState.playerOrder[GameState.currentPlayerIndex]-1];

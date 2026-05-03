@@ -1,4 +1,5 @@
 package src;
+
 import java.awt.image.BufferedImage;
 import java.awt.Rectangle;
 import java.util.*;
@@ -399,6 +400,36 @@ public class GameState{
         }
         playerOrder = temp;
         currentPlayerIndex = 0;
+    }
+    
+    // Check if anyone has 17+ powerplants - if so, trigger endgame
+    public static boolean shouldTriggerEndgame() {
+        for(Player p : players) {
+            if(p.getPowerPlants().size() >= 17) {
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    // Calculate total power output for a player (sum of all activated powerplants)
+    public static int calculatePlayerPowerOutput(Player player) {
+        int totalPower = 0;
+        for(PowerPlant pp : player.getPowerPlants()) {
+            if(pp.isActivated()) {
+                totalPower += pp.getPowerOutput();
+            }
+        }
+        return totalPower;
+    }
+    
+    // Calculate how many cities a player can power with their activated plants
+    public static int calculatePlayerCitiesPowered(Player player) {
+        int citiesPowered = 0;
+        int totalPower = calculatePlayerPowerOutput(player);
+        // Each city requires 1 power to power
+        citiesPowered = Math.min(totalPower, player.getCities().size());
+        return citiesPowered;
     }
 }    
 
