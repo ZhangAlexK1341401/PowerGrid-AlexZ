@@ -31,6 +31,9 @@ public class GameState{
     public static int numPlayerSkipped=0;
     public static ArrayList<Resource> resourcesToAdd = new ArrayList<Resource>();
     public static int discardPlayerIndex = -1;  // Track which player is in discard flow
+    
+    // Track city ownership order: cityName -> [playerIndex, playerIndex, playerIndex]
+    public static HashMap<String, ArrayList<Integer>> cityOwnershipOrder = new HashMap<>();
 
     public static boolean canAddResourceToAnyPlant(Player player, Resource resource) {
         if (player == null || resource == null) return false;

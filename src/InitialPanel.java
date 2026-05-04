@@ -101,7 +101,7 @@ private void loadCityCoordinates() {
 	
 	private BufferedImage titleScreen, gameBackground, redHouse, yellowHouse, greenHouse, blueHouse, purpleHouse, whiteHouse, bigBoard, board,
 	auctionImagePlayerOne, auctionImagePlayerTwo, auctionImagePlayerThree, auctionImagePlayerFour, arrow, scoringTrack, rules1, rules2, rules3, rules4, rules5, 
-	rules6, rules7, rules8, rules9, rules10, rules11, rules12, rulesBG, menu, resourceSummary;
+	rules6, rules7, rules8, rules9, rules10, rules11, rules12, rulesBG, menu, resourceSummary, bureaucracyCard;
 	private BufferedImage pp3, pp4, pp5, pp6, pp7, pp8, pp9, pp10, pp11, pp12, pp13, pp14, pp15, pp16, pp17, pp18,
 	pp19, pp20, pp21, pp22, pp23, pp24, pp25, pp26, pp27, pp28, pp29, pp30, pp31, pp32, pp33, pp34, pp35, pp36, pp37, pp38, pp39, pp40,
 	pp42, pp44, pp46, pp50, step3Card;
@@ -286,6 +286,10 @@ private void loadCityCoordinates() {
 			is = PowerGridFrame.class.getResourceAsStream("/resources/Resource Summary.png");
 			if(is == null) is = new java.io.FileInputStream("resources/Resource Summary.png");
 			resourceSummary = ImageIO.read(is);
+			
+			is = PowerGridFrame.class.getResourceAsStream("/resources/Bureaucracy Card.png");
+			if(is == null) is = new java.io.FileInputStream("resources/Bureaucracy Card.png");
+			bureaucracyCard = ImageIO.read(is);
 			
 			is = PowerGridFrame.class.getResourceAsStream("/resources/Menu.png");
 			if(is == null) is = new java.io.FileInputStream("resources/Menu.png");
@@ -1437,6 +1441,15 @@ private void loadCityCoordinates() {
 				g.drawImage(scoringTrack, 724, 200, 600, 130, this);
 				drawMenu(g);
 				
+				// Draw bureaucracy card on the left side
+				if(bureaucracyCard != null) {
+					int cardWidth = 200;
+					int cardHeight = 300;
+					int cardX = 50;
+					int cardY = (getHeight() - cardHeight) / 2;
+					g.drawImage(bureaucracyCard, cardX, cardY, cardWidth, cardHeight, this);
+				}
+				
 				g.setFont(Main.customFont.deriveFont(Font.PLAIN, 32f));
 				g.setColor(Color.BLACK);
 				String bureauMsg = "Player " + (GameState.playerOrder[GameState.currentPlayerIndex]) + " has earned " + GameState.players[GameState.playerOrder[GameState.currentPlayerIndex] - 1].getEarnedIncome() + " Elektro";
@@ -2287,9 +2300,9 @@ private void loadCityCoordinates() {
 
 	private void drawCitySectors(Graphics g, String cityName, Point p) {
 		// Define sector positions relative to city center
-		// Sector 0: top (player 1)
-		// Sector 1: bottom-left (player 2)
-		// Sector 2: bottom-right (player 3)
+		// Sector 0: top (first purchaser)
+		// Sector 1: bottom-left (second purchaser)
+		// Sector 2: bottom-right (third purchaser)
 		
 		int sectorSize = 12; // diameter of sector circle
 		int vertOffset = 12;  // vertical offset from center
@@ -2301,15 +2314,13 @@ private void loadCityCoordinates() {
 			{horzOffset, vertOffset}     // Sector 2: bottom-right
 		};
 		
-		// Collect all players who own this city
-		ArrayList<Integer> owningPlayers = new ArrayList<>();
-		for(int i = 0; i < 4; i++) {
-			if(GameState.players[i].getCities().contains(cityName)) {
-				owningPlayers.add(i);
-			}
+		// Get the purchase order for this city
+		ArrayList<Integer> owningPlayers = GameState.cityOwnershipOrder.get(cityName);
+		if(owningPlayers == null) {
+			owningPlayers = new ArrayList<>();
 		}
 		
-		// Draw a sector for each player that owns this city
+		// Draw a sector for each player in purchase order
 		for(int idx = 0; idx < owningPlayers.size() && idx < 3; idx++) {
 			int playerIndex = owningPlayers.get(idx);
 			Color playerColor = getColorFromString(GameState.players[playerIndex].getColor());
@@ -3206,7 +3217,13 @@ private void loadCityCoordinates() {
 
 				// - ghost bid
 				if (x >= c[1] && x <= c[1] + 50) {
-					p.setGhostBid(p.getGhostBid() - 1);
+					// Check if decreasing ghost bid would drop total bid below minBid
+					int newTotalBid = p.getGhostBid() - 1 + p.getBid();
+					if (newTotalBid >= GameState.minBid) {
+						p.setGhostBid(p.getGhostBid() - 1);
+					} else {
+						triggerInvalidClickEvent();
+					}
 					repaint();
 					return;
 				}
@@ -3533,6 +3550,7 @@ private void loadCityCoordinates() {
 								}
 										if(canUseResource) {
 											if (pp.addResource(GameState.selectedResourceForAddition)) {
+												GameState.currentEvent.removeLast();
 												// Resource added successfully - clear it and get next one
 												GameState.selectedResourceForAddition = null;
 												
@@ -3690,8 +3708,16 @@ private void loadCityCoordinates() {
 					   && y >= (int)(getHeight() * 0.55) && y <= (int)(getHeight() * 0.55) + (int)(getHeight() * 0.08)) {
 						// Confirm purchase - add logic to purchase city
 						if(GameState.players[GameState.playerOrder[GameState.currentPlayerIndex]-1].getElektro() >= GameState.setPriceForCity) {
-							GameState.players[GameState.playerOrder[GameState.currentPlayerIndex]-1].addCity(GameState.cityNameForPurchase);
-							GameState.players[GameState.playerOrder[GameState.currentPlayerIndex]-1].addElektro(-GameState.setPriceForCity);
+							int playerIndex = GameState.playerOrder[GameState.currentPlayerIndex]-1;
+							GameState.players[playerIndex].addCity(GameState.cityNameForPurchase);
+							
+							// Track the purchase order for this city
+							if(!GameState.cityOwnershipOrder.containsKey(GameState.cityNameForPurchase)) {
+								GameState.cityOwnershipOrder.put(GameState.cityNameForPurchase, new ArrayList<>());
+							}
+							GameState.cityOwnershipOrder.get(GameState.cityNameForPurchase).add(playerIndex);
+							
+							GameState.players[playerIndex].addElektro(-GameState.setPriceForCity);
 							System.out.println("Player " + (GameState.playerOrder[GameState.currentPlayerIndex]) + " bought " + GameState.cityNameForPurchase + " for " + GameState.setPriceForCity + " Elektro");
 						} else {
 							System.out.println("Player " + (GameState.playerOrder[GameState.currentPlayerIndex]) + " does not have enough Elektro to buy " + GameState.cityNameForPurchase);
@@ -3873,6 +3899,12 @@ private void loadCityCoordinates() {
 					int mr_mvOneX = mr_btnColX;
 					int mr_mvAllX = mr_btnColX;
 					int mr_doneX = mr_btnColX;
+					// Menu button clicked
+					if (x >= 1700 && x <= 1820 && y >= 10 && y <= 120) {
+						GameState.currentEvent.add("Menu");
+						repaint();
+						break;
+					}
 					// Done button clicked -> return to Activate Powerplants
 					if (x >= mr_doneX && x <= mr_doneX + mr_btnW && y >= mr_btnY + 2*(mr_btnH + 12) && y <= mr_btnY + 2*(mr_btnH + 12) + mr_btnH) {
 						GameState.currentEvent.removeLast();
